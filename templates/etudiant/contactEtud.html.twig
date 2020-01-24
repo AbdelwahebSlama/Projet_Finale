@@ -1,0 +1,54 @@
+{% extends 'etudiant/profile_etudiant.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-7 col-md-push-1">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInRight">
+
+                    {#                        <div class="form-group">#}
+                    {#                            <input type="text" class="form-control" disabled placeholder="Nom: {{ etud.nom }}">#}
+                    {#                        </div>#}
+                    {#                        <div class="form-group">#}
+                    {#                            <input type="text" class="form-control" disabled placeholder="Prenom: {{ etud.prenom }}">#}
+                    {#                        </div>#}
+                    {#                        <div class="form-group">#}
+                    {#                            <input type="text" class="form-control"  placeholder="Adresse: {{ etud.adresse }}">#}
+                    {#                        </div>#}
+                    {#                        <div class="form-group">#}
+                    {#                            <input type="" class="form-control" disabled placeholder="Email: {{ etud.email }}">#}
+                    {#                        </div>#}
+                    {#                        <div class="form-group">#}
+                    {#                            <input type="text" class="form-control" disabled  placeholder="Age: {{ etud.age }} ans">#}
+                    {#                        </div>#}
+                    <div class="card-body">
+                        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col"> {{ form_row( form.firstName, {'attr': {'placeholder': "first name"}}) }}
+                            </div>
+                            <div class="col"> {{ form_row( form.lastName, {'attr': {'placeholder': "last namm"}}) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"> {{ form_row( form.email, {'attr': {'placeholder': "Entrer votre email"}}) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col"> {{ form_row( form.message, {'attr': {'placeholder': "Ecrivez votre message ici"}}) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-send-message" value="Envoyer">
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

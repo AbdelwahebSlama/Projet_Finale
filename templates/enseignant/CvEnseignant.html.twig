@@ -1,0 +1,9 @@
+{% extends 'enseignant/profileEnseignant.html.twig' %}
+{% block body %}
+
+    <iframe class="embed-responsive-item" src="{{ asset('uploads/'~ensg.CV) }}" width="1000" height="1000"
+            align="middle"></iframe>
+    <div style="text-align: center;"><a href="{{ asset('uploads/'~ensg.CV) }}" target="_blank"><i
+                    class="fa fa-file-pdf-o" aria-hidden="true"></i> Télécharger</a></div>
+
+{% endblock %}

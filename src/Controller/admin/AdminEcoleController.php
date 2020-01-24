@@ -3,6 +3,7 @@ namespace App\Controller\admin;
 
 use App\Entity\Classe;
 use App\Entity\Ecole;
+use App\Entity\Message;
 use App\Entity\Stage;
 use App\Form\ClasseType;
 use App\Form\EcoleType;
@@ -13,13 +14,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminEcoleController extends AbstractController
 {
+    public $contact;
+
+    public function message()
+    {
+        $this->contact = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Message::class)->findAll();
+        return $this->contact;
+    }
+
     /**
      * @Route("/admin/ecole", name="admin_ecole")
      */
     public function index()
     {
+        $mesg = $this->message();
         return $this->render('admin_ecole/index.html.twig', [
             'controller_name' => 'AdminEcoleController',
+            "contact" => $mesg
         ]);
     }
     /**
@@ -27,10 +40,13 @@ class AdminEcoleController extends AbstractController
      */
     public function ListeClass()
     {
+        $mesg = $this->message();
+
         $manager = $this->getDoctrine()->getManager();
         $classe = $manager->getRepository(Classe::class)->findAll();
         return $this->render('admin/Classe/listeClasse.html.twig', [
-            "classe" => $classe
+            "classe" => $classe,
+            "contact" => $mesg
         ]);
     }
     /**
@@ -39,6 +55,7 @@ class AdminEcoleController extends AbstractController
      */
     public function AjoutModifClasse(Classe $classe = null, Request $request)
     {
+        $mesg = $this->message();
         if (!$classe) {
             $classe = new Classe();
         }
@@ -52,7 +69,8 @@ class AdminEcoleController extends AbstractController
         }
         return $this->render("admin/Classe/AjoutClasse.html.twig", [
             "formcl" => $form->createView(),
-            "ModifClas" => $classe->getId() !== null
+            "ModifClas" => $classe->getId() !== null,
+            "contact" => $mesg
         ]);
     }
     /**
@@ -60,10 +78,12 @@ class AdminEcoleController extends AbstractController
      */
     public function ListeStage()
     {
+        $mesg = $this->message();
         $manager = $this->getDoctrine()->getManager();
         $stages = $manager->getRepository(Stage::class)->findAll();
         return $this->render('admin/Stage/listeStage.html.twig', [
-            "stages" => $stages
+            "stages" => $stages,
+            "contact" => $mesg
         ]);
     }
     /**
@@ -72,6 +92,7 @@ class AdminEcoleController extends AbstractController
      */
     public function AjoutModifStage(Stage $stage = null, Request $request)
     {
+        $mesg = $this->message();
         if (!$stage) {
             $stage = new Stage();
         }
@@ -85,7 +106,8 @@ class AdminEcoleController extends AbstractController
         }
         return $this->render("admin/Stage/AjoutStage.html.twig", [
             "formStg" => $form->createView(),
-            "ModifStg" => $stage->getId() !== null
+            "ModifStg" => $stage->getId() !== null,
+            "contact" => $mesg
         ]);
     }
 
@@ -94,10 +116,12 @@ class AdminEcoleController extends AbstractController
      */
     public function Ecole()
     {
+        $mesg = $this->message();
         $manager = $this->getDoctrine()->getManager()->getRepository(Ecole::class);
         $ecole = $manager->findAll();
         return $this->render('admin/Ecole/ecoleListe.html.twig', [
-            "ecoles" => $ecole
+            "ecoles" => $ecole,
+            "contact" => $mesg
         ]);
     }
 
@@ -107,7 +131,7 @@ class AdminEcoleController extends AbstractController
      */
     public function AjoutEcole(Request $request)
     {
-
+        $mesg = $this->message();
 
         $ecole = new Ecole();
         $form = $this->createForm(EcoleType::class, $ecole);
@@ -119,7 +143,8 @@ class AdminEcoleController extends AbstractController
             return $this->redirectToRoute("admin.ecole");
         }
         return $this->render("admin/Ecole/AjoutEcole.html.twig", [
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "contact" => $mesg
         ]);
     }
 }

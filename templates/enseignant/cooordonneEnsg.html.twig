@@ -1,4 +1,4 @@
-{% extends "etudiant/profile_etudiant.html.twig" %}
+{% extends 'enseignant/profileEnseignant.html.twig' %}
 {% block body %}
     <section class="colorlib-contact" data-section="contact">
         <div class="colorlib-narrow-content">
@@ -15,7 +15,7 @@
                             <i class="icon-globe-outline"></i>
                         </div>
                         <div class="colorlib-text">
-                            <p><a href="#">{{ etud.email }}</a></p>
+                            <p><a href="#">{{ ensg.email }}</a></p>
                         </div>
                     </div>
 
@@ -24,7 +24,7 @@
                             <i class="icon-map"></i>
                         </div>
                         <div class="colorlib-text">
-                            <p>{{ etud.adresse }}</p>
+                            <p>{{ ensg.adresse }}</p>
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@
                             <i class="icon-map"></i>
                         </div>
                         <div class="colorlib-text">
-                            <p>CIN: {{ etud.cin }}</p>
+                            <p>CIN: {{ ensg.cin }}</p>
                         </div>
                     </div>
                 </div>
@@ -41,25 +41,22 @@
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box"
                              data-animate-effect="fadeInRight">
-                            <form action="{{ path('etudModifiEtud', {id: etud.id}) }}" method="get">
+                            <form action="{{ path('etudModifiEtud', {id: ensg.id}) }}" method="get">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" disabled placeholder="Nom: {{ etud.nom }}">
+                                    <input type="text" class="form-control" disabled placeholder="Nom: {{ ensg.nom }}">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" disabled
-                                           placeholder="Prenom: {{ etud.prenom }}">
+                                           placeholder="Prenom: {{ ensg.prenom }}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Adresse: {{ etud.adresse }}">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" disabled
-                                           placeholder="Email: {{ etud.email }}">
+                                    <input type="text" class="form-control" placeholder="Adresse: {{ ensg.adresse }}">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" disabled
-                                           placeholder="Age: {{ etud.age }} ans">
+                                           placeholder="Email: {{ ensg.email }}">
                                 </div>
+
 
                             </form>
                         </div>
@@ -75,8 +72,8 @@
         <div class="colorlib-narrow-content">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-                    <span class="heading-meta">Classe</span>
-                    <h2 class="colorlib-heading">Je suis en {{ etud.classe.nom }}</h2>
+                    <span class="heading-meta">Spécialité</span>
+                    <h2 class="colorlib-heading">Mon spécialité est {{ ensg.specialite }}</h2>
                 </div>
             </div>
             <div class="row row-pt-md">
@@ -86,8 +83,8 @@
 									<i class="icon-bulb"></i>
 								</span>
                         <div class="desc">
-                            <h3>Niveau</h3>
-                            <p>{{ etud.nom }} , tu as en {{ etud.classe.niveau.nom }}</p>
+                            <h3>Ecole</h3>
+                            <p>Je travail chez l' {{ ensg.ecole }}</p>
                         </div>
                     </div>
                 </div>
@@ -98,20 +95,22 @@
 								</span>
                         <div class="desc">
                             <h3>Stage</h3>
-                            <p>{{ etud.stage.type.nom }} encadré par {{ etud.stage.enseignant.nom }}</p>
+                            <p>j' ai encadré {{ ensg.stage | length }}.
+                                <a href=""> Liste de stage avec la liste des étudiants</a>
+                            </p>
+
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4 text-center animate-box">
-                    <div class="services color-3">
+                    <div class="services color-2">
 								<span class="icon">
-									<i class="icon-phone3"></i>
+									<i class="icon-data"></i>
 								</span>
                         <div class="desc">
-                            <h3>Paiement</h3>
-                            <p>Vous devez payer le montant suivant: {{ etud.classe.niveau.paiement.montant }} DT. Avant
-                                le 30/05/2020.</p>
+                            <h3>Stage</h3>
+                            <p>j' ai encadré {{ ensg.stage | length }}</p>
                         </div>
                     </div>
                 </div>
@@ -120,6 +119,5 @@
             </div>
         </div>
     </section>
-
 
 {% endblock %}

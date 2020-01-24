@@ -41,8 +41,8 @@ class Enseignant implements UserInterface, \Serializable
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @Assert\Length(min=4, max=30)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=4)
      */
     private $adresse;
 

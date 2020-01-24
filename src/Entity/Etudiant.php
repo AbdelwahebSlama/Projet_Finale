@@ -39,7 +39,7 @@ class Etudiant implements UserInterface, \Serializable
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=3)
      */
     private $adresse;

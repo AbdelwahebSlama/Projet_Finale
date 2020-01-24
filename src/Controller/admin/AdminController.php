@@ -4,22 +4,38 @@ namespace App\Controller\admin;
 
 use App\Entity\Enseignant;
 use App\Entity\Etudiant;
+use App\Entity\Message;
 use App\Form\EnseignantType;
 use App\Form\EtudiantType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController
 {
+    public $contact;
+
+    public function message()
+    {
+        $this->contact = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Message::class)->findAll();
+        return $this->contact;
+    }
+
     /**
      * @Route("/admin", name="admin")
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $mesg = $this->message();
         $admin = $this->getUser();
+
         return $this->render('admin/indexadmin.html.twig', [
-            "admin" => $admin
+            "admin" => $admin,
+            "contact" => $mesg
 
         ]);
     }
@@ -29,14 +45,13 @@ class AdminController extends AbstractController
      */
     public function listeEnseignant()
     {
+        $mesg = $this->message();
         $repo = $this->getDoctrine()->getRepository(Enseignant::class);
         $ensg = $repo->findAll();
-
-
-//        $repo = $this->getDoctrine()->getRepository(Enseignant::class);
-//        $ensg = $repo->findAll();
         return $this->render('admin/Enseignant/listeEnseingnat.html.twig', array(
-            "ensg" => $ensg
+            "ensg" => $ensg,
+            "contact" => $mesg
+
         ));
 
     }
@@ -46,9 +61,10 @@ class AdminController extends AbstractController
      */
     public function detailEnseignat(Enseignant $enseignant = null)
     {
-
+        $mesg = $this->message();
         return $this->render('admin/Enseignant/detailEnseingnat.html.twig', array(
-            'ensg' => $enseignant
+            'ensg' => $enseignant,
+            'contact' => $mesg
         ));
 
     }
@@ -70,8 +86,10 @@ class AdminController extends AbstractController
      * @Route("/admin/ajoutEnsg", name="adminAjoutEnsg")
      * @Route("/admin/{id}/ModifEns", name="adminModifiEnsg")
      */
-    public function ajouterEnseignant(Enseignant $enseignant = null, Request $request)
+    public function ajouterEnseignant(Enseignant $enseignant = null, Request $request,
+                                      UserPasswordEncoderInterface $encoder)
     {
+        $mesg = $this->message();
         if (!$enseignant) {
             $enseignant = new Enseignant();
         }
@@ -90,6 +108,10 @@ class AdminController extends AbstractController
             $file1->move($this->getParameter('upload_directory3'), $fileName1);
             $enseignant->setImage($fileName1);
 
+            $hash = $encoder->encodePassword($enseignant, $enseignant->getPassword());
+            $enseignant->setPassword($hash);
+
+
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($enseignant);
             $manager->flush();
@@ -98,7 +120,8 @@ class AdminController extends AbstractController
         }
         return $this->render('admin/Enseignant/ajoutEnseignant.html.twig', [
             "formEns" => $form->createView(),
-            "modifEns" => $enseignant->getId() !== null
+            "modifEns" => $enseignant->getId() !== null,
+            "contact" => $mesg
         ]);
     }
 
@@ -108,11 +131,13 @@ class AdminController extends AbstractController
      */
     public function listeEtudiant()
     {
+        $mesg = $this->message();
         $repo = $this->getDoctrine()->getRepository(Etudiant::class);
         $etud = $repo->findAll();
 
         return $this->render('admin/Etudiant/listeEtudiant.html.twig', [
-            "etud" => $etud
+            "etud" => $etud,
+            "contact" => $mesg
 
         ]);
     }
@@ -122,9 +147,11 @@ class AdminController extends AbstractController
      */
     public function detailEtudiant(Etudiant $etudiant = null)
     {
+        $mesg = $this->message();
 
         return $this->render('admin/Etudiant/DetailEtudiant.html.twig', array(
-            'etud' => $etudiant
+            'etud' => $etudiant,
+            "contact" => $mesg
         ));
 
     }
@@ -147,8 +174,10 @@ class AdminController extends AbstractController
      * @Route("/admin/ajoutEtud", name="adminAjoutEtud")
      * @Route("/admin/{id}/ModifEtud", name="adminModifiEtud")
      */
-    public function ajouterEtudiant(Etudiant $etudiant = null, Request $request)
+    public function ajouterEtudiant(Etudiant $etudiant = null, Request $request,
+                                    UserPasswordEncoderInterface $encoder)
     {
+        $mesg = $this->message();
 
         if (!$etudiant) {
             $etudiant = new Etudiant();
@@ -156,11 +185,15 @@ class AdminController extends AbstractController
 
         $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $etudiant->getImage();
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('upload_directory2'), $fileName);
             $etudiant->setImage($fileName);
+
+            $hash = $encoder->encodePassword($etudiant, $etudiant->getPassword());
+            $etudiant->setPassword($hash);
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($etudiant);
@@ -171,7 +204,8 @@ class AdminController extends AbstractController
         }
         return $this->render('admin/Etudiant/ajoutEtudiant.html.twig', [
             "formEtud" => $form->createView(),
-            "modifEtud" => $etudiant->getId() !== null
+            "modifEtud" => $etudiant->getId() !== null,
+            "contact" => $mesg
 
         ]);
     }
@@ -183,9 +217,9 @@ class AdminController extends AbstractController
     {
 //        $repo = $this->getDoctrine()->getRepository(Filiere::class);
 //        $matiere = $repo->findAll();
-
+        $mesg = $this->message();
         return $this->render('admin/Matiere/listefiliere.html.twig', [
-
+            "contact" => $mesg
         ]);
     }
 

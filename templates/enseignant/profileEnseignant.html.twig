@@ -1,9 +1,8 @@
-<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ etud }}</title>
+    <title>{{ ensg.nom }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
@@ -22,10 +21,8 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="shortcut icon" href="favicon.ico">
-
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
-
     <!-- Animate.css -->
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <!-- Icomoon Icon Fonts-->
@@ -52,7 +49,6 @@
 </head>
 <body>
 
-
 <div id="colorlib-page">
     <div class="container-wrap">
         <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle" data-toggle="collapse" data-target="#navbar"
@@ -60,22 +56,23 @@
         <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
             <div class="text-center">
                 <div class="author-img"
-                     style="background-image: url({{ asset('images/etudiants/')~etud.image }});"></div>
-                <h1 id="colorlib-logo"><a href="{{ path('etudiant') }}">{{ etud.nom }} {{ etud.prenom }}</a>
+                     style="background-image: url({{ asset('images/enseignants/')~ensg.image }});"></div>
+                <h1 id="colorlib-logo"><a href="{{ path('enseignant') }}">{{ ensg.nom }} {{ ensg.prenom }}</a>
                 </h1>
-                <span class="position">etudiant</span>
+                <span class="position">enseignant</span>
             </div>
 
             <nav id="colorlib-main-menu" class="navbar navbar-expand-lg navbar-light bg-light">
                 <div id="" class="collapse">
                     <ul>
-                        <li class="active"><a href="{{ path('etudiant.coordonnee', {id: etud.id} ) }}">Accueil</a></li>
-                        <li><a href="{{ path('etudModifiEtud', {id: etud.id}) }}" data-nav-section="skills">Modifier
-                                profile</a></li>
-                        <li><a href="{{ path('etud.paiement', {id: etud.id}) }}" data-nav-section="skills">Paiement</a>
+                        <li class="active"><a href="{{ path('enseignant.coordonnee', {id: ensg.id} ) }}">Accueil</a>
                         </li>
-                        <li><a href="{{ path('etudiant.contact', {id: etud.id}) }}"
-                               data-nav-section="skills">Contact</a></li>
+
+                        <li><a href="" data-nav-section="skills">Modifier profile</a></li>
+                        <li><a href="{{ path('enseignant.Cv', {id: ensg.id }) }}" data-nav-section="skills">Voir votre
+                                CV</a></li>
+
+                        <li><a href="" data-nav-section="skills">Contact</a></li>
                         <li><a href="{{ path('security_lougout') }}" data-nav-section="work">Logout</a></li>
 
                     </ul>
@@ -97,7 +94,7 @@
                                         <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
                                             <div class="slider-text-inner js-fullheight">
                                                 <div class="desc">
-                                                    <h1>Hi! <br>{{ etud.nom }} {{ etud.prenom }} </h1>
+                                                    <h1>Hi! <br>{{ ensg.nom }} {{ ensg.prenom }} </h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,7 +145,6 @@
 
 <!-- MAIN JS -->
 <script src="{{ asset('js/main.js') }}"></script>
-
 
 </body>
 </html>

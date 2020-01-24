@@ -13,13 +13,40 @@ use Symfony\Component\Routing\Annotation\Route;
 class EnseignantController extends AbstractController
 {
     /**
-     * @Route("/enseignant/{id}", name="enseignant")
+     * @Route("/enseignant", name="enseignant")
      */
     public function index(Enseignant $enseignant = null)
     {
-        $manager = $this->getDoctrine()->getRepository(Enseignant::class);
-        return $this->render('enseignant/index.html.twig', [
+        $enseignant = $this->getUser();
+        return $this->render('enseignant/profileEnseignant.html.twig', [
             'ensg' => $enseignant
         ]);
     }
+
+    /**
+     * @Route("/enseignant/coordonne/{id<\d+>}", name="enseignant.coordonnee")
+     */
+    public function Affiche_Cordonne(Enseignant $enseignant = null)
+    {
+
+
+        return $this->render('enseignant/cooordonneEnsg.html.twig', [
+            "ensg" => $enseignant
+
+        ]);
+    }
+
+    /**
+     * @Route("/enseignant/CV/{id<\d+>}", name="enseignant.Cv")
+     */
+    public function Affiche_CV(Enseignant $enseignant = null)
+    {
+
+
+        return $this->render('enseignant/CvEnseignant.html.twig', [
+            "ensg" => $enseignant
+
+        ]);
+    }
+
 }
