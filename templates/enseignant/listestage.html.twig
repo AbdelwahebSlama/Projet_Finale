@@ -1,0 +1,59 @@
+{% extends 'enseignant/profileEnseignant.html.twig' %}
+{% block body %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ path('admin') }}">Stages</a>
+        </li>
+        <li class="breadcrumb-item active">Liste des Stages</li>
+    </ol>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"> La liste</i>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Description</th>
+                        <th>Sujet</th>
+                        <th>Encadré par</th>
+                        <th>type</th>
+                        <th>Etudiant</th>
+
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Description</th>
+                        <th>Sujet</th>
+                        <th>Encadré par</th>
+                        <th>type</th>
+                        <th>Etudiant</th>
+
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for stage in ensg.stage %}
+                    <tr>
+
+                        <td>{{ stage.id }}</td>
+                        <td>{{ stage.description }}</td>
+                        <td>{{ stage.sujet }}</td>
+                        <td>{{ stage.enseignant.nom }}</td>
+                        <td>{{ stage.type.nom }}</td>
+                        <td>{{ stage.etudiant.count }}</td>
+
+                        {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

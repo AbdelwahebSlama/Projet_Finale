@@ -68,11 +68,13 @@
                         <li class="active"><a href="{{ path('enseignant.coordonnee', {id: ensg.id} ) }}">Accueil</a>
                         </li>
 
-                        <li><a href="" data-nav-section="skills">Modifier profile</a></li>
+                        <li><a href="{{ path('enseignant.modifprofil', {id : ensg.id}) }}" data-nav-section="skills">Modifier
+                                profile</a></li>
                         <li><a href="{{ path('enseignant.Cv', {id: ensg.id }) }}" data-nav-section="skills">Voir votre
                                 CV</a></li>
 
-                        <li><a href="" data-nav-section="skills">Contact</a></li>
+                        <li><a href="{{ path('enseignant.stage', {id: ensg.id}) }}" data-nav-section="skills">Liste de
+                                stages</a></li>
                         <li><a href="{{ path('security_lougout') }}" data-nav-section="work">Logout</a></li>
 
                     </ul>

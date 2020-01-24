@@ -50,7 +50,8 @@
                                            placeholder="Prenom: {{ ensg.prenom }}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Adresse: {{ ensg.adresse }}">
+                                    <input type="text" class="form-control" disabled
+                                           placeholder="Adresse: {{ ensg.adresse }}">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" disabled
@@ -90,8 +91,8 @@
                 </div>
                 <div class="col-md-4 text-center animate-box">
                     <div class="services color-2">
-								<span class="icon">
-									<i class="icon-data"></i>
+							<span class="icon">
+									<i class="icon-phone3"></i>
 								</span>
                         <div class="desc">
                             <h3>Stage</h3>
@@ -109,8 +110,8 @@
 									<i class="icon-data"></i>
 								</span>
                         <div class="desc">
-                            <h3>Stage</h3>
-                            <p>j' ai encadré {{ ensg.stage | length }}</p>
+                            <h3>Spécialité</h3>
+                            <p>Mon spécialté est {{ ensg.specialite }}</p>
                         </div>
                     </div>
                 </div>

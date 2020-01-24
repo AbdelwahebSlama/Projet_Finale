@@ -1,0 +1,52 @@
+{% extends 'enseignant/profileEnseignant.html.twig' %}
+{% block body %}
+    <section class="colorlib-contact" data-section="contact">
+        <div class="colorlib-narrow-content">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                    <span class="heading-meta">Profile</span>
+                    <h2 class="colorlib-heading">Modifier Coordonnées</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-push-1">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box"
+                             data-animate-effect="fadeInRight">
+                            <form action="{{ path('enseignant.modifprofil', {id: ensg.id}) }}" method="POST">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" disabled placeholder="CIN" : {{ ensg.cin }}
+                                    ">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" disabled placeholder="Nom: {{ ensg.nom }}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" disabled
+                                           placeholder="Prénom: {{ ensg.prenom }}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="adresse"
+                                           placeholder="Adresse: {{ ensg.adresse }}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="email"
+                                           placeholder="Email: {{ ensg.email }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="file" class="form-control" name="image" placeholder="image">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary btn-send-message" value="Modifier">
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
